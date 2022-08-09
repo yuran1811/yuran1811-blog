@@ -1,0 +1,1 @@
+const previewSecret="MY_SECRET",projectUrl="http://localhost:3000";export default function resolveProductionUrl(e){return`${projectUrl}/api/preview?secret=${previewSecret}&slug=${e.slug.current}`};

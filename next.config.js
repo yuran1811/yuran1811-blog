@@ -1,0 +1,1 @@
+module.exports={reactStrictMode:!0,swcMinify:!0,images:{domains:["cdn.sanity.io"]}}
