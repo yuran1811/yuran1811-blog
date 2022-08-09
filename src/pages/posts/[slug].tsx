@@ -36,7 +36,7 @@ export default function Post({ data = {}, preview }: PostProps) {
 
   return (
     <>
-      <Meta title={`${post.title || 'Post'} | Yuran Blog`} desc={post?.desc || 'Yuran Blog Post'}>
+      <Meta title={`${post?.title || 'Post'} | Yuran Blog`} desc={post?.desc || 'Yuran Blog Post'}>
         {post.coverImage && (
           <meta
             key="ogImage"
