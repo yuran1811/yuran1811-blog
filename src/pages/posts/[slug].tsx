@@ -4,44 +4,47 @@ import PostBody from '@cpns/Post/PostBody';
 import PostHeader from '@cpns/Post/PostHeader';
 import PostTitle from '@cpns/Post/PostTitle';
 import { Container, Meta, SectionSeparator } from '@cpns/shared';
+import { getHTMLPostContent } from '@lib/mdToHtml';
+import NotFound from '@pages/404';
+import { PostType } from '@shared/types';
 import { postQuery, postSlugsQuery } from '@utils/queries';
 import { urlForImage, usePreviewSubscription } from '@utils/sanity';
 import { getClient, overlayDrafts, sanityClient } from '@utils/sanity.server';
-import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 
 interface PostProps {
   data: {
-    post?: any;
-    morePosts?: any[];
+    post: PostType;
+    morePosts: any[];
   };
   preview: boolean;
 }
 
-export default function Post({ data = {}, preview }: PostProps) {
+export default function Post({ data, preview }: PostProps) {
   const router = useRouter();
 
   const slug = data?.post?.slug;
-  const {
-    data: { post, morePosts },
-  } = usePreviewSubscription(postQuery, {
+  const { data: previewSubs } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
-    enabled: preview && slug,
+    enabled: preview && !!slug,
   });
 
-  if (!router.isFallback && !slug) {
-    return <ErrorPage statusCode={404} />;
+  if ((!router.isFallback && !slug) || !previewSubs || !previewSubs?.post || !previewSubs?.morePosts) {
+    return <NotFound />;
   }
 
   return (
     <>
-      <Meta title={`${post?.title || 'Post'} | Yuran Blog`} desc={post?.desc || 'Yuran Blog Post'}>
-        {post.coverImage && (
+      <Meta
+        title={`${previewSubs.post.title || 'Post'} | Yuran Blog`}
+        desc={previewSubs.post.desc || 'Yuran Blog Post'}
+      >
+        {!!previewSubs.post.coverImage && (
           <meta
             key="ogImage"
             property="og:image"
-            content={urlForImage(post.coverImage).width(1200).height(627).fit('crop').url()}
+            content={urlForImage(previewSubs.post.coverImage).width(1200).height(627).fit('crop').url()}
           />
         )}
       </Meta>
@@ -52,13 +55,18 @@ export default function Post({ data = {}, preview }: PostProps) {
           ) : (
             <>
               <article>
-                <PostHeader title={post.title} coverImage={post.coverImage} date={post.date} author={post.author} />
-                <PostBody content={post.content} />
+                <PostHeader
+                  title={previewSubs.post.title}
+                  coverImage={previewSubs.post.coverImage}
+                  date={previewSubs.post.date}
+                  author={previewSubs.post.author}
+                />
+                <PostBody content={previewSubs.post.content} />
               </article>
 
               <SectionSeparator />
 
-              {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+              {previewSubs.morePosts.length > 0 && <MoreStories posts={previewSubs.morePosts} />}
             </>
           )}
         </Container>
@@ -68,20 +76,15 @@ export default function Post({ data = {}, preview }: PostProps) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
-  const {
-    post,
-    morePosts,
-  }: {
-    post: any;
-    morePosts: any[];
-  } = await getClient(preview).fetch(postQuery, { slug: params.slug });
+  const { post, morePosts } = await getClient(preview).fetch(postQuery, { slug: params?.slug });
+  const postContent = getHTMLPostContent(post?.content || '');
 
   return {
     props: {
       preview,
       data: {
-        post,
-        morePosts: overlayDrafts(morePosts),
+        post: { ...post, content: postContent } || ({} as PostType),
+        morePosts: morePosts ? overlayDrafts(morePosts) : [],
       },
     },
   };
@@ -90,7 +93,7 @@ export async function getStaticProps({ params, preview = false }) {
 export async function getStaticPaths() {
   const paths: string[] = await sanityClient.fetch(postSlugsQuery);
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug) => ({ params: { slug } })) || [],
     fallback: true,
   };
 }

@@ -1,5 +1,5 @@
 import { BackIcon } from '@cpns/icons/BackIcon';
-import { Avatar, CoverImage, Date } from '@cpns/shared';
+import { Avatar, CoverImage, CursorEffectWrapper, Date } from '@cpns/shared';
 import { useRouter } from 'next/router';
 import PostTitle from './PostTitle';
 
@@ -19,7 +19,9 @@ const PostHeader = ({ title, coverImage, date, author }: PostHeaderProps) => {
   return (
     <>
       <div className="flexcentercol mb-12">
-        <BackIcon className="cursor-pointer text-6xl md:text-7xl" onClick={() => router.back()} />
+        <CursorEffectWrapper cursorType="link">
+          <BackIcon className="text-6xl md:text-7xl" onClick={() => router.back()} />
+        </CursorEffectWrapper>
         <PostTitle>{title}</PostTitle>
       </div>
       <div className="hidden justify-between md:mb-12 md:flex md:flex-col md:items-center ">

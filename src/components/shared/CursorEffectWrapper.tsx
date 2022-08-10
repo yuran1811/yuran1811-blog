@@ -1,4 +1,5 @@
 import { useStore } from '@/store';
+import { DivProps } from '@shared/types';
 import { FC, PropsWithChildren } from 'react';
 
 interface CursorEffectWrapperProps {
@@ -6,24 +7,27 @@ interface CursorEffectWrapperProps {
   cursorStatus?: string;
 }
 
-export const CursorEffectWrapper: FC<CursorEffectWrapperProps & PropsWithChildren> = ({
+export const CursorEffectWrapper: FC<CursorEffectWrapperProps & PropsWithChildren & DivProps> = ({
   children,
   cursorStatus,
   cursorType,
+  ...otherProps
 }) => {
   const currentCursor = useStore((s) => s.currentCursor);
 
-  const onMouseOver = () => {
-    currentCursor?.setAttribute('cursor-type', cursorType);
-    currentCursor?.setAttribute('cursor-status', cursorStatus);
+  const onMouseOver = (e: any) => {
+    e.stopPropagation();
+    currentCursor?.setAttribute('cursor-type', cursorType || '');
+    currentCursor?.setAttribute('cursor-status', cursorStatus || '');
   };
-  const onMouseLeave = () => {
+  const onMouseLeave = (e: any) => {
+    e.stopPropagation();
     currentCursor?.setAttribute('cursor-type', '');
     currentCursor?.setAttribute('cursor-status', '');
   };
 
   return (
-    <div onMouseLeave={onMouseLeave} onMouseOver={onMouseOver}>
+    <div {...otherProps} onMouseLeave={onMouseLeave} onMouseOver={onMouseOver} onMouseOut={onMouseLeave}>
       {children}
     </div>
   );

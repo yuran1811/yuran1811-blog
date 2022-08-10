@@ -11,7 +11,7 @@ export const ChangeTheme = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flexcenter cursor-pointer text-6xl" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+    <div className="flexcenter text-6xl" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
       {theme === 'dark' && <MoonIcon />}
       {theme === 'light' && <SunIcon />}
     </div>

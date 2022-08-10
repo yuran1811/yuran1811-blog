@@ -1,5 +1,6 @@
 import { usePanel } from '@/contexts';
 import { DivProps } from '@/shared';
+import { CursorEffectWrapper } from '@cpns/shared';
 import c from 'classnames';
 import { FC } from 'react';
 
@@ -20,15 +21,17 @@ export const MenuIcon: FC<DivProps> = (props) => {
   const onClickHandle = () => setActive && setActive((s) => ({ ...s, isMenu: !s.isMenu }));
 
   return (
-    <div
-      {...otherProps}
-      className={c(
-        className,
-        beforeStyle(active.isMenu),
-        afterStyle(active.isMenu),
-        'flexcenter flexcentercol relative h-10 min-h-[40px] w-10 min-w-[40px] cursor-pointer transition-all'
-      )}
-      onClick={onClickHandle}
-    />
+    <CursorEffectWrapper cursorType="link">
+      <div
+        {...otherProps}
+        className={c(
+          className,
+          beforeStyle(active.isMenu),
+          afterStyle(active.isMenu),
+          'flexcenter flexcentercol relative h-10 min-h-[40px] w-10 min-w-[40px] transition-all'
+        )}
+        onClick={onClickHandle}
+      />
+    </CursorEffectWrapper>
   );
 };

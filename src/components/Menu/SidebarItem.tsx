@@ -1,3 +1,4 @@
+import { CursorEffectWrapper } from '@cpns/shared';
 import c from 'classnames';
 import Link from 'next/link';
 import { FC, PropsWithChildren, useState } from 'react';
@@ -13,29 +14,33 @@ export const SidebarItem: FC<SidebarItemProps & PropsWithChildren> = ({ href, la
   const [isExpanded, setExpanded] = useState(false);
 
   return (
-    <li>
-      {!!expanded ? (
-        <div>
-          <div className="flex cursor-pointer items-center justify-start gap-4" onClick={() => setExpanded((s) => !s)}>
-            {icon || ''} {label || ''}
-          </div>
-          {isExpanded && (
-            <div
-              className={c('hidden', {
-                '!block': expanded,
-              })}
-            >
-              {children}
+    <CursorEffectWrapper cursorType="link">
+      <li>
+        {!!expanded ? (
+          <div>
+            <div className="flex items-center justify-start gap-4 text-3xl" onClick={() => setExpanded((s) => !s)}>
+              {icon || ''} {label || ''}
             </div>
-          )}
-        </div>
-      ) : (
-        <Link href={`${href || '/'}`}>
-          <div className="flex cursor-pointer items-center justify-start gap-4">
-            {icon || ''} {label || ''}
+            {isExpanded && (
+              <div
+                className={c('hidden', {
+                  '!block': expanded,
+                })}
+              >
+                {children}
+              </div>
+            )}
           </div>
-        </Link>
-      )}
-    </li>
+        ) : (
+          <CursorEffectWrapper cursorType="link">
+            <Link href={`${href || '/'}`}>
+              <div className="flex items-center justify-start gap-4 text-3xl">
+                {icon || ''} {label || ''}
+              </div>
+            </Link>
+          </CursorEffectWrapper>
+        )}
+      </li>
+    </CursorEffectWrapper>
   );
 };

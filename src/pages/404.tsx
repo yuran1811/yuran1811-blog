@@ -1,6 +1,6 @@
 import { BackIcon } from '@cpns/icons';
 import Layout from '@cpns/layouts/Layout';
-import { Container, Cursor, CursorEffectWrapper, Meta } from '@cpns/shared';
+import { Container, CursorEffectWrapper, Meta } from '@cpns/shared';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
@@ -10,9 +10,7 @@ const NotFound: NextPage = () => {
       <Meta title="404 Not Found" desc="Yuran Blog" />
       <Layout>
         <Container>
-          <div className="flexcentercol w-full cursor-none gap-4 overflow-hidden py-20">
-            <Cursor />
-
+          <div className="flexcentercol w-full gap-4 overflow-hidden py-20">
             <CursorEffectWrapper cursorType="wrapper">
               <div className="flexcentercol">
                 <h1 className="text-9xl font-bold">404</h1>

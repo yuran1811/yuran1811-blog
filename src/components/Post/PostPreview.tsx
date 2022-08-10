@@ -1,15 +1,19 @@
-import { Avatar, CoverImage, Date } from '@cpns/shared';
+import { Avatar, CoverImage, CursorEffectWrapper, Date } from '@cpns/shared';
 import Link from 'next/link';
 
 const PostPreview = ({ title, coverImage, date, excerpt, author, slug }) => (
   <div>
     <div className="mb-5">
-      <CoverImage slug={slug} title={title} image={coverImage} />
+      <CursorEffectWrapper cursorType="link">
+        <CoverImage slug={slug} title={title} image={coverImage} />
+      </CursorEffectWrapper>
     </div>
     <h3 className="mb-3 text-4xl font-semibold leading-snug">
-      <Link href={`/posts/${slug}`}>
-        <a>{title}</a>
-      </Link>
+      <CursorEffectWrapper cursorType="link">
+        <Link href={`/posts/${slug}`}>
+          <span className="line-clamp-2">{title}</span>
+        </Link>
+      </CursorEffectWrapper>
     </h3>
     <div className="mb-6 text-lg">
       <Date dateString={date} />

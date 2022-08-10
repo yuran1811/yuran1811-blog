@@ -1,4 +1,4 @@
-import { ToTop } from '@cpns/shared';
+import { Cursor, CursorEffectWrapper, ToTop } from '@cpns/shared';
 import { FC, PropsWithChildren } from 'react';
 import Footer from './Footer';
 import Header from './Header';
@@ -13,9 +13,10 @@ const Layout: FC<LayoutProps & PropsWithChildren> = ({ children, home }) => {
       <Header />
       <main className="min-h-screen">
         <ToTop />
-        {children}
+        <CursorEffectWrapper>{children}</CursorEffectWrapper>
       </main>
       <Footer />
+      <Cursor />
     </>
   );
 };

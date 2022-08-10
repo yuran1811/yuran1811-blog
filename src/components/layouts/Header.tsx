@@ -1,6 +1,6 @@
 import { PanelProvider } from '@/contexts';
 import Menu from '@cpns/Menu/Menu';
-import { ChangeTheme } from '@cpns/shared';
+import { ChangeTheme, CursorEffectWrapper } from '@cpns/shared';
 import Link from 'next/link';
 
 export default function Header() {
@@ -11,9 +11,11 @@ export default function Header() {
           <Menu />
         </div>
 
-        <Link href="/">
-          <a className="transition-transform hover:scale-105">Yuran Blog.</a>
-        </Link>
+        <CursorEffectWrapper cursorType="wrapper">
+          <Link href="/">
+            <span className="transition-transform hover:scale-105">Yuran Blog.</span>
+          </Link>
+        </CursorEffectWrapper>
 
         <div className="px-10">
           <ChangeTheme />
