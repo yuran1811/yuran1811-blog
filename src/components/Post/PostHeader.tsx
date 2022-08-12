@@ -1,19 +1,14 @@
 import { BackIcon } from '@cpns/icons/BackIcon';
-import { Avatar, CoverImage, CursorEffectWrapper, Date } from '@cpns/shared';
+import { CoverImage, CursorEffectWrapper } from '@cpns/shared';
+import { PostType } from '@shared/types';
 import { useRouter } from 'next/router';
+import { PostCreation } from './PostCreation';
+import { PostInfo } from './PostInfo';
 import PostTitle from './PostTitle';
 
-interface PostHeaderProps {
-  title: string;
-  coverImage: string;
-  date: string;
-  author: {
-    name: string;
-    picture: string;
-  };
-}
+type PostHeaderProps = Pick<PostType, 'author' | 'title' | 'coverImage' | 'date' | 'label' | 'tags'>;
 
-const PostHeader = ({ title, coverImage, date, author }: PostHeaderProps) => {
+const PostHeader = ({ title, coverImage, date, author, label, tags }: PostHeaderProps) => {
   const router = useRouter();
 
   return (
@@ -24,23 +19,16 @@ const PostHeader = ({ title, coverImage, date, author }: PostHeaderProps) => {
         </CursorEffectWrapper>
         <PostTitle>{title}</PostTitle>
       </div>
-      <div className="hidden justify-between md:mb-12 md:flex md:flex-col md:items-center ">
-        <Avatar name={author.name} picture={author.picture} />
-        <div className="mt-6 text-xl">
-          <Date dateString={date} />
-        </div>
-      </div>
-      <div className="mb-8 sm:mx-0 md:mb-16">
+      <PostCreation
+        className="mb-12 hidden justify-between text-xl md:flex md:flex-col md:items-center"
+        author={author}
+        date={date}
+      />
+      <PostInfo className="flexcenter -mb-20 block w-full text-lg" label={label} tags={tags} /> {/*  md:hidden */}
+      <div className="relative mb-8 sm:mx-0 md:mb-16">
         <CoverImage title={title} image={coverImage} />
       </div>
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-6 block md:hidden">
-          <Avatar name={author.name} picture={author.picture} />
-        </div>
-        <div className="mb-6 text-lg md:hidden">
-          <Date dateString={date} />
-        </div>
-      </div>
+      <PostCreation className="mx-auto mb-16 block max-w-2xl text-lg md:hidden" author={author} date={date} />
     </>
   );
 };

@@ -6,7 +6,7 @@ const Menu = () => {
   const { active, setActive } = usePanel();
 
   return (
-    <div className="flexcenter relative">
+    <div className="flexcenter">
       <MenuIcon />
       {active.isMenu && <Sidebar onClickOutside={() => setActive((s) => ({ ...s, isMenu: false }))} />}
     </div>

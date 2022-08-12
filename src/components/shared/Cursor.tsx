@@ -16,6 +16,8 @@ export const Cursor = () => {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const mouseMoveHandle = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return;
+
       if (dotRef.current) {
         dotRef.current.style.left = `${e.clientX}px`;
         dotRef.current.style.top = `${e.clientY}px`;
@@ -33,11 +35,13 @@ export const Cursor = () => {
         realMouse.current.y = e.clientY;
       }
     };
+    const mouseDownHandle = () => cursorRef.current?.setAttribute('cursor-status', 'click');
+    const mouseUpHandle = () => cursorRef.current?.setAttribute('cursor-status', '');
     const updateMouse = () => {
       requestAnimationFrame(updateMouse);
 
-      displayedMouse.current.x += (realMouse.current.x - displayedMouse.current.x) * 0.08;
-      displayedMouse.current.y += (realMouse.current.y - displayedMouse.current.y) * 0.08;
+      displayedMouse.current.x += (realMouse.current.x - displayedMouse.current.x) * 0.065;
+      displayedMouse.current.y += (realMouse.current.y - displayedMouse.current.y) * 0.065;
 
       if (ringRef.current) {
         ringRef.current.style.left = `${displayedMouse.current.x}px`;
@@ -49,8 +53,14 @@ export const Cursor = () => {
     updateMouse();
 
     window.addEventListener('mousemove', mouseMoveHandle);
-    window.addEventListener('mousedown', () => cursorRef.current?.setAttribute('cursor-status', 'click'));
-    window.addEventListener('mouseup', () => cursorRef.current?.setAttribute('cursor-status', ''));
+    window.addEventListener('mousedown', mouseDownHandle);
+    window.addEventListener('mouseup', mouseUpHandle);
+
+    return () => {
+      window.removeEventListener('mousemove', mouseMoveHandle);
+      window.removeEventListener('mousedown', mouseDownHandle);
+      window.removeEventListener('mouseup', mouseUpHandle);
+    };
   }, []);
 
   return (

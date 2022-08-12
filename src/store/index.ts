@@ -1,4 +1,3 @@
-import __ from 'lodash';
 import create from 'zustand';
 
 interface StoreType {
@@ -7,9 +6,12 @@ interface StoreType {
 
   currentCursor: HTMLDivElement;
   setCurrentCursor: (currentCursor: HTMLDivElement) => void;
+
+  progressBar: HTMLElement;
+  setProgressBar: (progressBar: HTMLElement) => void;
 }
 
-export const GENERAL_STORE_NAME = __.kebabCase('General Store');
+export const GENERAL_STORE_NAME = async () => (await import('lodash')).default.kebabCase('General Store');
 export const GENERAL_STORE_VERSION = 0.01;
 
 export const useStore = create<StoreType>()((set, get) => ({
@@ -18,4 +20,7 @@ export const useStore = create<StoreType>()((set, get) => ({
 
   currentCursor: null,
   setCurrentCursor: (currentCursor) => set({ currentCursor }),
+
+  progressBar: null,
+  setProgressBar: (progressBar) => set({ progressBar }),
 }));

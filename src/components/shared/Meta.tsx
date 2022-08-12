@@ -1,4 +1,4 @@
-import { BASE_URL, HOME_OG_IMAGE_URL } from '@/shared';
+import { BASE_URL } from '@/shared';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
@@ -28,11 +28,13 @@ export const Meta: FC<MetaProps & PropsWithChildren> = ({ title, desc, children 
       <meta name="title" content={title} />
       <meta name="description" content={desc} />
 
+      <meta name="robots" content="all" />
+
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${BASE_URL}${router?.asPath || ''}`} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={desc} />
-      <meta property="og:image" content={HOME_OG_IMAGE_URL || '/assets/imgs/favicon-32x32.png'} key="ogImage" />
+      <meta property="og:image" content={'/assets/imgs/favicon-32x32.png'} key="ogImage" />
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content={`${BASE_URL}${router?.asPath || ''}`} />

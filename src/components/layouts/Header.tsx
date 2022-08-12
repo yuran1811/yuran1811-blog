@@ -1,6 +1,6 @@
 import { PanelProvider } from '@/contexts';
 import Menu from '@cpns/Menu/Menu';
-import { ChangeTheme, CursorEffectWrapper } from '@cpns/shared';
+import { ChangeTheme, CursorEffectWrapper, ScrollProgress } from '@cpns/shared';
 import Link from 'next/link';
 
 export default function Header() {
@@ -21,6 +21,8 @@ export default function Header() {
           <ChangeTheme />
         </div>
       </PanelProvider>
+
+      <ScrollProgress />
     </header>
   );
 }

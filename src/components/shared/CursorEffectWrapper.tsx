@@ -3,8 +3,8 @@ import { DivProps } from '@shared/types';
 import { FC, PropsWithChildren } from 'react';
 
 interface CursorEffectWrapperProps {
-  cursorType?: string;
-  cursorStatus?: string;
+  cursorType?: 'link' | 'wrapper' | 'default';
+  cursorStatus?: 'click';
 }
 
 export const CursorEffectWrapper: FC<CursorEffectWrapperProps & PropsWithChildren & DivProps> = ({

@@ -19,10 +19,6 @@ export const PanelContext = createContext<PanelProviderProps>({
 export const PanelProvider: FC<PropsWithChildren> = ({ children }) => {
   const [active, setActive] = useState({
     isMenu: false,
-    isAccount: false,
-    isData: false,
-    isSetting: false,
-    isDoc: false,
   });
 
   return <PanelContext.Provider value={{ active, setActive }}>{children}</PanelContext.Provider>;

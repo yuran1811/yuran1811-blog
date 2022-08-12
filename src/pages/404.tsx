@@ -13,7 +13,7 @@ const NotFound: NextPage = () => {
           <div className="flexcentercol w-full gap-4 overflow-hidden py-20">
             <CursorEffectWrapper cursorType="wrapper">
               <div className="flexcentercol">
-                <h1 className="text-9xl font-bold">404</h1>
+                <h2 className="text-9xl font-bold">404</h2>
                 <h2 className="text-5xl font-bold">Not Found</h2>
               </div>
             </CursorEffectWrapper>

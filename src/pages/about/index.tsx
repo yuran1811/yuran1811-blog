@@ -13,17 +13,21 @@ export default function About() {
           <div className="w-full p-6">
             <div className="flexcentercol relative m-4 p-4">
               <div className="absolute h-[160px] w-[160px] animate-ping rounded-full bg-[#f2da87]" />
-              <Image src="/avatar.jpg" width={250} height={250} className="rounded-full" />
+              <Image src="/avatar.jpg" width={250} height={250} className="rounded-full" alt="Yuran Avatar" />
             </div>
 
             <div className="m-4 space-y-4 p-4 text-3xl">
-              <div className="text-center">My name is Khoa - aka Yuran</div>
-              <div className="text-center">I'm {new Date().getFullYear() - 2005} years old</div>
+              <div className="text-center">
+                My name is <strong>Khoa 🌽</strong> - aka <strong>Yuran</strong>
+              </div>
+              <div className="text-center">
+                {`I'm`} <strong>{new Date().getFullYear() - 2005}</strong> years old 😗
+              </div>
             </div>
 
             <div className="m-4 mt-12 space-y-4 p-4 text-3xl">
-              <div className="text-center">That's all for now</div>
-              <div className="text-center">Thanks for reading {':)'} </div>
+              <div className="text-center">{`That's all for now`}</div>
+              <div className="text-center">Thanks for reading 😊 </div>
             </div>
           </div>
         </Container>

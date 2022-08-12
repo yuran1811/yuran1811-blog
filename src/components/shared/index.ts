@@ -9,6 +9,6 @@ export * from './ExternalLink';
 export * from './Intro';
 export * from './Meta';
 export * from './Overlay';
-export * from './Overlay';
+export * from './ScrollProgress';
 export * from './SectionSeparator';
 export * from './ToTop';

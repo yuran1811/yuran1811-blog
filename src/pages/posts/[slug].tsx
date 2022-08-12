@@ -1,3 +1,4 @@
+import { useStore } from '@/store';
 import Layout from '@cpns/layouts/Layout';
 import MoreStories from '@cpns/Post/MoreStories';
 import PostBody from '@cpns/Post/PostBody';
@@ -11,6 +12,7 @@ import { postQuery, postSlugsQuery } from '@utils/queries';
 import { urlForImage, usePreviewSubscription } from '@utils/sanity';
 import { getClient, overlayDrafts, sanityClient } from '@utils/sanity.server';
 import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 
 interface PostProps {
   data: {
@@ -21,6 +23,10 @@ interface PostProps {
 }
 
 export default function Post({ data, preview }: PostProps) {
+  const setProgressBar = useStore((s) => s.setProgressBar);
+
+  const bodyRef = useRef<HTMLDivElement>(null);
+
   const router = useRouter();
 
   const slug = data?.post?.slug;
@@ -29,6 +35,10 @@ export default function Post({ data, preview }: PostProps) {
     initialData: data,
     enabled: preview && !!slug,
   });
+
+  useEffect(() => {
+    bodyRef.current && setProgressBar(bodyRef.current);
+  }, []);
 
   if ((!router.isFallback && !slug) || !previewSubs || !previewSubs?.post || !previewSubs?.morePosts) {
     return <NotFound />;
@@ -56,12 +66,14 @@ export default function Post({ data, preview }: PostProps) {
             <>
               <article>
                 <PostHeader
-                  title={previewSubs.post.title}
+                  author={previewSubs.post.author}
                   coverImage={previewSubs.post.coverImage}
                   date={previewSubs.post.date}
-                  author={previewSubs.post.author}
+                  label={previewSubs.post?.label || ''}
+                  tags={previewSubs.post?.tags || ''}
+                  title={previewSubs.post.title}
                 />
-                <PostBody content={previewSubs.post.content} />
+                <PostBody ref={bodyRef} content={previewSubs.post.content} />
               </article>
 
               <SectionSeparator />
@@ -76,7 +88,7 @@ export default function Post({ data, preview }: PostProps) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
-  const { post, morePosts } = await getClient(preview).fetch(postQuery, { slug: params?.slug });
+  const { post, morePosts } = await getClient(preview).fetch(postQuery, { slug: params?.slug || '' });
   const postContent = getHTMLPostContent(post?.content || '');
 
   return {

@@ -1,4 +1,4 @@
-import { postBySlugQuery } from '@/utils/queries';
+import { postsByQuery } from '@/utils/queries';
 import { previewClient } from '@/utils/sanity.server';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -7,7 +7,7 @@ export default async function preview(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ message: 'Invalid token' });
   }
 
-  const post = await previewClient.fetch(postBySlugQuery, { slug: req.query.slug });
+  const post = await previewClient.fetch(postsByQuery(), { slug: req.query.slug });
   if (!post) return res.status(401).json({ message: 'Invalid slug' });
 
   res.setPreviewData({});

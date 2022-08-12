@@ -3,8 +3,10 @@ export interface PostType {
   slug: string;
   desc: string;
   content: string;
-  coverImage: any;
   date: any;
+  coverImage: any;
+  label?: string;
+  tags?: string;
   author: {
     name: string;
     picture: string;

@@ -18,9 +18,17 @@ export const SidebarItem: FC<SidebarItemProps & PropsWithChildren> = ({ href, la
       <li>
         {!!expanded ? (
           <div>
-            <div className="flex items-center justify-start gap-4 text-3xl" onClick={() => setExpanded((s) => !s)}>
-              {icon || ''} {label || ''}
-            </div>
+            <Link href={label.toLowerCase() || '/'}>
+              <div
+                className="flex items-center justify-start gap-4 text-3xl"
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  setExpanded((s) => !s);
+                }}
+              >
+                {icon || ''} {label || ''}
+              </div>
+            </Link>
             {isExpanded && (
               <div
                 className={c('hidden', {

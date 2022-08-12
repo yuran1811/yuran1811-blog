@@ -36,9 +36,9 @@ export default function Footer() {
         </div>
       </Container>
 
-      <div className="flexcentercol space-y-2 p-8">
-        <span className="dark:text-gray-400">© Copyright {new Date().getFullYear()}. All Rights Reserved.</span>
-        <span className="dark:text-gray-400">Made by yuran1811</span>
+      <div className="flexcentercol space-y-2 p-8 text-center dark:text-gray-400">
+        <span>© Copyright {new Date().getFullYear()}. All Rights Reserved.</span>
+        <span>Made by yuran1811</span>
       </div>
     </footer>
   );

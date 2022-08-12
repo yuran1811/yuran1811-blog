@@ -7,8 +7,6 @@ const getBlockTemplate = (content: string = '', lang: string = 'js') =>
 const renderer = MD({
   html: true,
   highlight: function (str, lang) {
-    console.log(str);
-
     if (lang && hljs.getLanguage(lang)) {
       try {
         return getBlockTemplate(hljs.highlight(str, { language: lang, ignoreIllegals: true }).value, lang);
