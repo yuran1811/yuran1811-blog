@@ -3,6 +3,7 @@ import Layout from '@cpns/layouts/Layout';
 import MoreStories from '@cpns/Post/MoreStories';
 import PostBody from '@cpns/Post/PostBody';
 import PostHeader from '@cpns/Post/PostHeader';
+import PostShare from '@cpns/Post/PostShare';
 import PostTitle from '@cpns/Post/PostTitle';
 import { Container, Meta, SectionSeparator } from '@cpns/shared';
 import { getHTMLPostContent } from '@lib/mdToHtml';
@@ -11,6 +12,7 @@ import { PostType } from '@shared/types';
 import { postQuery, postSlugsQuery } from '@utils/queries';
 import { urlForImage, usePreviewSubscription } from '@utils/sanity';
 import { getClient, overlayDrafts, sanityClient } from '@utils/sanity.server';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
@@ -87,7 +89,7 @@ export default function Post({ data, preview }: PostProps) {
   );
 }
 
-export async function getStaticProps({ params, preview = false }) {
+export const getStaticProps: GetStaticProps = async ({ params, preview = false }) => {
   const { post, morePosts } = await getClient(preview).fetch(postQuery, { slug: params?.slug || '' });
   const postContent = getHTMLPostContent(post?.content || '');
 
@@ -99,13 +101,14 @@ export async function getStaticProps({ params, preview = false }) {
         morePosts: morePosts ? overlayDrafts(morePosts) : [],
       },
     },
+    revalidate: 1,
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths: string[] = await sanityClient.fetch(postSlugsQuery);
   return {
     paths: paths.map((slug) => ({ params: { slug } })) || [],
-    fallback: true,
+    fallback: false,
   };
-}
+};

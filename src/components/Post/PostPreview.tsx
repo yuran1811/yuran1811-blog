@@ -1,8 +1,15 @@
 import { CoverImage, CursorEffectWrapper } from '@cpns/shared';
+import { PostType } from '@shared/types';
 import Link from 'next/link';
+import { FC } from 'react';
 import { PostCreation } from './PostCreation';
+import { PostInfo } from './PostInfo';
 
-const PostPreview = ({ title, coverImage, date, author, slug }) => (
+interface PostPreviewProps {
+  postData: PostType;
+}
+
+const PostPreview: FC<PostPreviewProps> = ({ postData: { title, coverImage, date, author, slug, label, tags } }) => (
   <div>
     <div className="mb-5">
       <CursorEffectWrapper cursorType="link">
@@ -17,6 +24,7 @@ const PostPreview = ({ title, coverImage, date, author, slug }) => (
       </CursorEffectWrapper>
     </h2>
     <PostCreation author={author} date={date} preview />
+    <PostInfo isPreview className="mt-6" label={label} tags={tags} />
   </div>
 );
 

@@ -12,7 +12,7 @@ interface HashtagProps {
 export const Hashtag: FC<HashtagProps & PropsWithChildren> = ({ children, href, tag }) => {
   return (
     <CursorEffectWrapper cursorType="link">
-      <Link href={href || '/#'}>
+      <Link href={href || '/hashtags'}>
         <a
           className={c(
             'm-2 select-none rounded-md p-2 px-4 font-semibold',

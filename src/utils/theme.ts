@@ -13,6 +13,8 @@ export const hashTagStyles: StyleType = {
   'keyboard-shortcut': { bg: 'bg-hashtag-5', color: 'text-white' },
   'sublime-text': { bg: 'bg-hashtag-6', color: 'text-white' },
   intro: { bg: 'bg-hashtag-7', color: 'text-white' },
+  library: { bg: 'bg-hashtag-8', color: 'text-black' },
+  canvas: { bg: 'bg-hashtag-10', color: 'text-black' },
 
   'vs-code': { bg: 'bg-hashtag-vscode', color: 'text-white' },
   technology: { bg: 'bg-hashtag-tech', color: 'text-white' },
@@ -24,4 +26,5 @@ export const labelStyles: StyleType = {
   moment: { bg: 'bg-rose-300', color: 'text-rose-800' },
   pts: { bg: 'bg-sky-800', color: 'text-sky-300' },
   tools: { bg: 'bg-teal-300', color: 'text-teal-600' },
+  discover: { bg: 'bg-yellow-300', color: 'text-yellow-800' },
 };

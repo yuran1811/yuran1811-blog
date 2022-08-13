@@ -40,8 +40,8 @@ export const Cursor = () => {
     const updateMouse = () => {
       requestAnimationFrame(updateMouse);
 
-      displayedMouse.current.x += (realMouse.current.x - displayedMouse.current.x) * 0.065;
-      displayedMouse.current.y += (realMouse.current.y - displayedMouse.current.y) * 0.065;
+      displayedMouse.current.x += (realMouse.current.x - displayedMouse.current.x) * 0.07;
+      displayedMouse.current.y += (realMouse.current.y - displayedMouse.current.y) * 0.07;
 
       if (ringRef.current) {
         ringRef.current.style.left = `${displayedMouse.current.x}px`;

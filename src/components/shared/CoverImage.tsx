@@ -14,7 +14,7 @@ type CoverImageProps = {
 
 export const CoverImage: FC<CoverImageProps> = ({ className, title, slug, image: source, isPriority }) => {
   const image = source ? (
-    <div className={c('shadow-lg', className)}>
+    <div className="shadow-lg">
       <Image
         priority={!!isPriority}
         layout="responsive"
@@ -30,7 +30,7 @@ export const CoverImage: FC<CoverImageProps> = ({ className, title, slug, image:
   );
 
   return (
-    <div className="sm:mx-0">
+    <div className={c('sm:mx-0', className)}>
       {slug ? (
         <Link href={`/posts/${slug}`}>
           <a aria-label={title}>{image}</a>

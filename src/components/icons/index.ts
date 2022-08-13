@@ -3,6 +3,7 @@ export * from './Social';
 export * from './BackIcon';
 export * from './BookIcon';
 export * from './CodeIcon';
+export * from './HashtagIcon';
 export * from './MenuIcon';
 export * from './MoonIcon';
 export * from './SearchIcon';

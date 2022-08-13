@@ -3,12 +3,13 @@ import { isValidRequest } from '@sanity/webhook';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const AUTHOR_UPDATED_QUERY = `
-  *[_type == "author" && _id == $id] {
-    "slug": *[_type == "post" && references(^._id)].slug.current
-  }["slug"][]`;
+*[_type == "author" && _id == $id] {
+  "slug": *[_type == "post" && references(^._id)].slug.current
+}["slug"][]
+`;
 const POST_UPDATED_QUERY = `*[_type == "post" && _id == $id].slug.current`;
 
-const getQueryForType = (type) => {
+const getQueryForType = (type: string) => {
   switch (type) {
     case 'author':
       return AUTHOR_UPDATED_QUERY;
@@ -35,7 +36,7 @@ export default async function revalidate(req: NextApiRequest, res: NextApiRespon
     return res.status(400).json({ message: invalidId });
   }
 
-  log(`Querying post slug for _id '${id}', type '${_type}' ..`);
+  log(`Querying post slug for _id '${id}', type '${_type}' ...`);
   const slug = await sanityClient.fetch(getQueryForType(_type), { id });
   const slugs = (Array.isArray(slug) ? slug : [slug]).map((_slug) => `/posts/${_slug}`);
   const staleRoutes = ['/', ...slugs];
@@ -43,6 +44,7 @@ export default async function revalidate(req: NextApiRequest, res: NextApiRespon
   try {
     await Promise.all(staleRoutes.map((route) => res.revalidate(route)));
     const updatedRoutes = `Updated routes: ${staleRoutes.join(', ')}`;
+    
     log(updatedRoutes);
     return res.status(200).json({ message: updatedRoutes });
   } catch (err) {

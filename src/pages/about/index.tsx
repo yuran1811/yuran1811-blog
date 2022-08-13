@@ -5,7 +5,7 @@ import Image from 'next/image';
 export default function About() {
   return (
     <>
-      <Meta title="About | Yuran Blog" desc="Yuran Blog About" />
+      <Meta title="About | Yuran Blog" desc="Yuran Blog - About Me." />
       <Layout>
         <Container>
           <div className="p-6 text-center text-6xl font-bold">About Me.</div>

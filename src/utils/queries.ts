@@ -18,6 +18,17 @@ export const indexQuery = `
 } [0..6]
 `;
 
+export const allPostsQuery = `
+*[_type == "post"] | order(date desc) {
+  ${postFields}
+}`
+
+export const recentPostsQuery = `
+*[_type == "post"] | order(date desc) {
+  ${postFields}
+} [0..4]
+`;
+
 export const categoriesQuery = (labels: string[] = ['dev']) => `
 {
   ${labels

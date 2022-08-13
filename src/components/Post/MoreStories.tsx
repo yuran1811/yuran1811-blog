@@ -4,24 +4,38 @@ import Link from 'next/link';
 import { FC } from 'react';
 import PostPreview from './PostPreview';
 import c from 'classnames';
+import { HashtagIcon } from '@cpns/icons';
 
 interface MoreStoriesProps {
   posts: PostType[];
   title?: string;
   href?: string;
+  isHashtag?: boolean;
 }
 
-const MoreStories: FC<MoreStoriesProps> = ({ posts, title, href }) => (
+const MoreStories: FC<MoreStoriesProps> = ({ posts, title, href, isHashtag }) => (
   <section>
     {!href ? (
-      <h2 className="mb-16 text-6xl font-bold capitalize leading-tight tracking-tighter md:text-7xl">
-        {title || 'More'}.
+      <h2
+        className={c('mb-16 text-6xl font-bold leading-tight tracking-tighter md:text-7xl', {
+          capitalize: !isHashtag,
+          'flex items-center justify-start': isHashtag,
+        })}
+      >
+        {!!isHashtag && <HashtagIcon />}
+        {!!isHashtag ? title : `${title || 'More'}.`}
       </h2>
     ) : (
       <CursorEffectWrapper cursorType="link">
         <Link href={href}>
-          <h2 className="mb-16 text-6xl font-bold capitalize leading-tight tracking-tighter md:text-7xl">
-            {title || 'More'}.
+          <h2
+            className={c('mb-16 text-6xl font-bold leading-tight tracking-tighter md:text-7xl', {
+              capitalize: !isHashtag,
+              'flex items-center justify-start': isHashtag,
+            })}
+          >
+            {!!isHashtag && <HashtagIcon />}
+            {!!isHashtag ? title : `${title || 'More'}.`}
           </h2>
         </Link>
       </CursorEffectWrapper>
@@ -33,14 +47,7 @@ const MoreStories: FC<MoreStoriesProps> = ({ posts, title, href }) => (
       })}
     >
       {posts.map((post) => (
-        <PostPreview
-          key={post.slug}
-          title={post.title}
-          coverImage={post.coverImage}
-          date={post.date}
-          author={post.author}
-          slug={post.slug}
-        />
+        <PostPreview key={post.slug} postData={post} />
       ))}
     </div>
 
