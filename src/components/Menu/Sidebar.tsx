@@ -15,7 +15,7 @@ const Sidebar: FC<SidebarProps> = ({ onClickOutside }) => (
       <SidebarItem href="/about" label="About" icon={<UserIcon />} />
       <SidebarItem href="/categories" label="Categories" icon={<StackIcon />} />
       <SidebarItem href="/hashtags" label="Hashtags" icon={<HashtagIcon />} />
-      <SidebarItem href="/handbook" label="Handbook" icon={<BookIcon />} />
+      {/* <SidebarItem href="/handbook" label="Handbook" icon={<BookIcon />} /> */}
     </ul>
   </nav>
 );

@@ -27,7 +27,10 @@ export default function Category({ posts, label }: CategoryProps) {
 
   return (
     <>
-      <Meta title={`${title || 'Categories'} | Yuran Blog`} desc={`Yuran Blog ${title}`} />
+      <Meta
+        title={`${title || 'Categories'} | Yuran Blog`}
+        desc={`Yuran Blog - Search posts with category: ${title}`}
+      />
       <Layout>
         <Container>
           {router.isFallback ? (
@@ -47,17 +50,22 @@ export default function Category({ posts, label }: CategoryProps) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params, preview = false }) => {
-  const posts = overlayDrafts(
-    await getClient(preview).fetch(postsByQuery('label'), {
-      label: params?.label || '',
-    })
-  );
-  return { props: { posts, label: params?.label || '' } };
+  const label = params?.label || '';
+
+  const posts = overlayDrafts(await getClient(preview).fetch(postsByQuery('label'), { label }));
+
+  return {
+    props: {
+      posts,
+      label,
+    },
+    revalidate: 5,
+  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: CATEGORIES.map((label) => ({ params: { label: label || '' } })) || [],
-    fallback: true,
+    paths: CATEGORIES.map((label) => ({ params: { label } })),
+    fallback: false,
   };
 };

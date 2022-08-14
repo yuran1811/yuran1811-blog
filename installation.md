@@ -1,7 +1,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/yuran1811/blog
+git clone https://github.com/yuran1811/yuran1811-blog
 npm i
 npm run dev
 ```
@@ -10,9 +10,9 @@ npm run dev
 
 ### Step 1. Create an account and a project on Sanity
 
-First, [create an account on Sanity](https://sanity.io).
+First, [create a Sanity account](https://sanity.io).
 
-After creating an account, install the Sanity cli from npm `npm i -g @sanity/cli`.
+Then, install the Sanity cli from npm `npm i -g @sanity/cli`.
 
 ### Step 2. Create a new Sanity project
 
@@ -20,11 +20,17 @@ In a separate folder run `sanity init` to initialize a new studio project.
 
 This will be where we manage our data.
 
-When going through the init phase make sure to select **Yes** to the **Use the default dataset configuration** step and select **Clean project with no predefined schemas** for the **Select project template** step.
+When going through the init phase make sure to:
+
+- Select **Yes** to the **Use the default dataset configuration** step
+- Select **Clean project with no predefined schemas** for the **Select project template** step.
 
 ### Step 3. Generate an API token
 
-Log into https://manage.sanity.io/ and choose the project you just created. Then from **Settings**, select **API**, then click **Add New Token** and create a token with the **Read** permission.
+Log into https://manage.sanity.io/ and choose the project you just created.
+
+- Then from **Settings**, select **API**
+- Then click **Add New Token** and create a token with the **Read** permission.
 
 ### Step 4. Set up environment variables
 
@@ -36,12 +42,12 @@ cp .env.local.example .env.local
 
 Then set each variable on `.env.local`:
 
-- `NEXT_PUBLIC_SANITY_PROJECT_ID` should be the `projectId` value from the `sanity.json` file created in step 2.
-- `NEXT_PUBLIC_SANITY_DATASET` should be the `dataset` value from the `sanity.json` file created in step 2 - defaults to `production` if not set.
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` should be the `projectId` value from the `sanity.json` file created in [**Step 2**](#step-2-create-a-new-sanity-project).
+- `NEXT_PUBLIC_SANITY_DATASET` should be the `dataset` value from the `sanity.json` file created in [**Step 2**](#step-2-create-a-new-sanity-project) - defaults to `production` if not set.
 
 ---
 
-- `SANITY_API_TOKEN` should be the API token generated in the previous step.
+- `SANITY_API_TOKEN` should be the API token generated in the [**previous step**](#step-3-generate-an-api-token).
 - `SANITY_PREVIEW_SECRET` can be any random string (but avoid spaces), like `MY_SECRET` - this is used for [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode).
 - `SANITY_STUDIO_REVALIDATE_SECRET` should be setup the same way as `SANITY_PREVIEW_SECRET` - this is used for [on-demand revalidation](https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta) with [webhooks](https://www.sanity.io/docs/webhooks).
 

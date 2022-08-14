@@ -6,6 +6,7 @@ export * from './Cursor';
 export * from './CursorEffectWrapper';
 export * from './Date';
 export * from './ExternalLink';
+export * from './Heading';
 export * from './Intro';
 export * from './Meta';
 export * from './Overlay';

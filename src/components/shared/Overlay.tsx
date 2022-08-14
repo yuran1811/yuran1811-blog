@@ -9,7 +9,7 @@ interface OverlayProps {
 }
 
 export const Overlay: FC<OverlayProps & DivProps> = ({ className, zIdx, background, ...otherProps }) => (
-  <CursorEffectWrapper cursorType="link">
+  <CursorEffectWrapper cursorType="close">
     <div
       {...otherProps}
       className={c(className, 'fullscreen', zIdx || 'z-10', background || 'bg-white/90 dark:bg-[#121212]/90')}

@@ -3,10 +3,10 @@ import Layout from '@cpns/layouts/Layout';
 import MoreStories from '@cpns/Post/MoreStories';
 import PostBody from '@cpns/Post/PostBody';
 import PostHeader from '@cpns/Post/PostHeader';
-import PostShare from '@cpns/Post/PostShare';
 import PostTitle from '@cpns/Post/PostTitle';
 import { Container, Meta, SectionSeparator } from '@cpns/shared';
 import { getHTMLPostContent } from '@lib/mdToHtml';
+import { viCharValidate } from '@lib/standardize';
 import NotFound from '@pages/404';
 import { PostType } from '@shared/types';
 import { postQuery, postSlugsQuery } from '@utils/queries';
@@ -19,7 +19,7 @@ import { useEffect, useRef } from 'react';
 interface PostProps {
   data: {
     post: PostType;
-    morePosts: any[];
+    morePosts: PostType[];
   };
   preview: boolean;
 }
@@ -31,7 +31,7 @@ export default function Post({ data, preview }: PostProps) {
 
   const router = useRouter();
 
-  const slug = data?.post?.slug;
+  const slug = data?.post?.slug || '';
   const { data: previewSubs } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
@@ -46,17 +46,20 @@ export default function Post({ data, preview }: PostProps) {
     return <NotFound />;
   }
 
+  const { post, morePosts } = previewSubs;
+
   return (
     <>
       <Meta
-        title={`${previewSubs.post.title || 'Post'} | Yuran Blog`}
-        desc={previewSubs.post.desc || 'Yuran Blog Post'}
+        title={`${post.title || 'Post'} | Yuran Blog`}
+        desc={post.desc || 'Yuran Blog Post'}
+        locale={viCharValidate(post.title) ? 'vi_VN' : 'en_US'}
       >
-        {!!previewSubs.post.coverImage && (
+        {!!post.coverImage && (
           <meta
             key="ogImage"
             property="og:image"
-            content={urlForImage(previewSubs.post.coverImage).width(1200).height(627).fit('crop').url()}
+            content={urlForImage(post.coverImage).width(1200).height(627).fit('crop').url()}
           />
         )}
       </Meta>
@@ -68,19 +71,19 @@ export default function Post({ data, preview }: PostProps) {
             <>
               <article>
                 <PostHeader
-                  author={previewSubs.post.author}
-                  coverImage={previewSubs.post.coverImage}
-                  date={previewSubs.post.date}
-                  label={previewSubs.post?.label || ''}
-                  tags={previewSubs.post?.tags || ''}
-                  title={previewSubs.post.title}
+                  author={post.author}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                  label={post?.label || ''}
+                  tags={post?.tags || ''}
+                  title={post.title}
                 />
-                <PostBody ref={bodyRef} content={previewSubs.post.content} />
+                <PostBody ref={bodyRef} content={post.content} />
               </article>
 
               <SectionSeparator />
 
-              {previewSubs.morePosts.length > 0 && <MoreStories posts={previewSubs.morePosts} />}
+              {morePosts.length > 0 && <MoreStories posts={morePosts} />}
             </>
           )}
         </Container>
@@ -101,14 +104,14 @@ export const getStaticProps: GetStaticProps = async ({ params, preview = false }
         morePosts: morePosts ? overlayDrafts(morePosts) : [],
       },
     },
-    revalidate: 1,
+    revalidate: 5,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths: string[] = await sanityClient.fetch(postSlugsQuery);
   return {
-    paths: paths.map((slug) => ({ params: { slug } })) || [],
+    paths: paths?.map((slug) => ({ params: { slug } })) || [],
     fallback: false,
   };
 };

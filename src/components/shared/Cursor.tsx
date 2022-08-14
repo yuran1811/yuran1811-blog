@@ -1,6 +1,11 @@
 import { useStore } from '@/store';
 import { useEffect, useRef } from 'react';
 
+type EventHandlerFuncType = (e: string, listener: EventListenerOrEventListenerObject) => void;
+
+const addEvent: EventHandlerFuncType = (e, listener) => window.addEventListener(e, listener);
+const removeEvent: EventHandlerFuncType = (e, listener) => window.removeEventListener(e, listener);
+
 export const Cursor = () => {
   const setCurrentCursor = useStore((s) => s.setCurrentCursor);
 
@@ -52,14 +57,14 @@ export const Cursor = () => {
     setCurrentCursor(cursorRef.current);
     updateMouse();
 
-    window.addEventListener('mousemove', mouseMoveHandle);
-    window.addEventListener('mousedown', mouseDownHandle);
-    window.addEventListener('mouseup', mouseUpHandle);
+    addEvent('mousemove', mouseMoveHandle);
+    addEvent('mousedown', mouseDownHandle);
+    addEvent('mouseup', mouseUpHandle);
 
     return () => {
-      window.removeEventListener('mousemove', mouseMoveHandle);
-      window.removeEventListener('mousedown', mouseDownHandle);
-      window.removeEventListener('mouseup', mouseUpHandle);
+      removeEvent('mousemove', mouseMoveHandle);
+      removeEvent('mousedown', mouseDownHandle);
+      removeEvent('mouseup', mouseUpHandle);
     };
   }, []);
 

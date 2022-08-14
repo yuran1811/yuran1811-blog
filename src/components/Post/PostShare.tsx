@@ -1,5 +1,6 @@
 import { BASE_URL, DivProps } from '@/shared';
 import { EnvelopeIcon, FacebookIcon } from '@cpns/icons';
+import { CursorEffectWrapper } from '@cpns/shared';
 import c from 'classnames';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -32,7 +33,9 @@ const PostShare: FC<PostShareProps & Pick<DivProps, 'className'>> = ({ title, cl
     <div className={c(className, 'flexcenter my-3 flex-wrap gap-2 text-5xl')}>
       {sources.map(({ Icon, link, name }) => (
         <a key={name} href={link(`${BASE_URL}${router.asPath}`, title)} target="_blank" rel="noopener noreferrer">
-          <Icon />
+          <CursorEffectWrapper cursorType="link">
+            <Icon />
+          </CursorEffectWrapper>
         </a>
       ))}
     </div>

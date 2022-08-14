@@ -3,20 +3,20 @@ import Layout from '@cpns/layouts/Layout';
 import MoreStories from '@cpns/Post/MoreStories';
 import PostTitle from '@cpns/Post/PostTitle';
 import { Container, CursorEffectWrapper, Meta } from '@cpns/shared';
-import { allPostsQuery, postsByQuery } from '@lib/queries';
+import { allPostsQuery } from '@lib/queries';
 import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
 import NotFound from '@pages/404';
 import { PostType } from '@shared/types';
+import __ from 'lodash';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import __ from 'lodash';
 
-interface HashTagsProps {
+interface HashTagProps {
   posts: PostType[];
   hashtag: string;
 }
 
-export default function HashTags({ posts, hashtag }: HashTagsProps) {
+export default function HashTag({ posts, hashtag }: HashTagProps) {
   const router = useRouter();
 
   if (!router.isFallback && !hashtag && !posts) {
@@ -53,9 +53,10 @@ export const getStaticProps: GetStaticProps = async ({ params, preview = false }
 
   return {
     props: {
-      posts: allPosts?.filter((post) => post?.tags?.includes(thisHashtag)),
+      posts: allPosts?.filter((post) => post?.tags?.includes(thisHashtag)) || [],
       hashtag: params?.hashtag || '',
     },
+    revalidate: 5,
   };
 };
 

@@ -1,8 +1,8 @@
 import { CursorEffectWrapper } from '@cpns/shared';
-import Link from 'next/link';
-import React, { FC, PropsWithChildren } from 'react';
-import c from 'classnames';
 import { hashTagStyles } from '@lib/theme';
+import c from 'classnames';
+import Link from 'next/link';
+import { FC, PropsWithChildren } from 'react';
 
 interface HashtagProps {
   href?: string;

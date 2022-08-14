@@ -6,9 +6,10 @@ import { FC, PropsWithChildren } from 'react';
 interface MetaProps {
   title: string;
   desc: string;
+  locale?: string;
 }
 
-export const Meta: FC<MetaProps & PropsWithChildren> = ({ title, desc, children }) => {
+export const Meta: FC<MetaProps & PropsWithChildren> = ({ title, desc, locale, children }) => {
   const router = useRouter();
 
   return (
@@ -31,23 +32,23 @@ export const Meta: FC<MetaProps & PropsWithChildren> = ({ title, desc, children 
       <meta name="description" content={desc} />
       <meta
         name="keywords"
-        content={`yuran1811, yuran blog, yuran1811 blog, yuran legends, yuran legends blog, ${title}, ${desc}`}
+        content={`yuran1811, yuran legends, yuran blog, yuran1811 blog, yuran blog, yuran legends blog, ${title}, ${desc}`}
       />
 
       <meta name="robots" content="all" />
 
+      <meta property="og:description" content={desc} />
+      <meta property="og:title" content={title} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${BASE_URL}${router?.asPath || ''}`} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={desc} />
       <meta
         property="og:image"
         content="https://og-image.vercel.app/**Yuran**%20%20Blog..png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-white-logo.svg&images=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fremojansen%2Flogo.ts%40master%2Fts.svg"
         key="ogImage"
       />
       <meta property="og:image:alt" content="Yuran Blog - Share Image" />
+      <meta property="og:locale" content={locale || 'en_US'} />
       <meta property="og:site_name" content="https://yuran1811-blog.vercel.app" />
-      <meta property="og:type" content="website" />
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content={`${BASE_URL}${router?.asPath || ''}`} />

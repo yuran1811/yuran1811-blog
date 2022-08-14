@@ -3,7 +3,7 @@ import { DivProps } from '@shared/types';
 import { FC, PropsWithChildren } from 'react';
 
 interface CursorEffectWrapperProps {
-  cursorType?: 'link' | 'wrapper' | 'default';
+  cursorType?: 'link' | 'wrapper' | 'default' | 'close';
   cursorStatus?: 'click';
 }
 
