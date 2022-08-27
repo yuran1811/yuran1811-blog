@@ -4,3 +4,6 @@ Allow: /
 
 # Host
 Host: https://yuran1811-blog.vercel.app/
+
+# Sitemaps
+Sitemap: https://yuran1811-blog.vercel.app/sitemap.xml
