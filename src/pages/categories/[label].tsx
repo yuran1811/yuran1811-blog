@@ -1,8 +1,7 @@
-import { BackIcon } from '@cpns/icons';
 import Layout from '@cpns/layouts/Layout';
 import MoreStories from '@cpns/Post/MoreStories';
 import PostTitle from '@cpns/Post/PostTitle';
-import { Container, CursorEffectWrapper, Meta } from '@cpns/shared';
+import { BackButton, Container, CursorEffectWrapper, Meta } from '@cpns/shared';
 import { postsByQuery } from '@lib/queries';
 import { getClient, overlayDrafts } from '@lib/sanity.server';
 import NotFound from '@pages/404';
@@ -38,7 +37,7 @@ export default function Category({ posts, label }: CategoryProps) {
           ) : (
             <>
               <CursorEffectWrapper cursorType="link" className="flexcenter my-10">
-                <BackIcon className="text-6xl md:text-7xl" onClick={() => router.back()} />
+                <BackButton router={router} />
               </CursorEffectWrapper>
               <MoreStories title={label || ''} posts={posts} />
             </>

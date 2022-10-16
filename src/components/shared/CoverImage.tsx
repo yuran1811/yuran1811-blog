@@ -14,7 +14,7 @@ type CoverImageProps = {
 
 export const CoverImage: FC<CoverImageProps> = ({ className, title, slug, image: source, isPriority }) => {
   const image = source ? (
-    <div className="shadow-lg">
+    <div className="shadow-lg shadow-zinc-800">
       <Image
         priority={!!isPriority}
         layout="responsive"

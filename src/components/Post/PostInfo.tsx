@@ -19,7 +19,7 @@ export const PostInfo: FC<PostInfoProps> = ({ label, tags, className, isPreview 
         'flexcenter gap-x-4': isPreview,
       })}
     >
-      <CursorEffectWrapper cursorType="link" className={c({ 'text-3xl': !isPreview })}>
+      <CursorEffectWrapper cursorType="link" className={c({ 'text-xl md:text-3xl': !isPreview })}>
         <Link href={`/categories/${label.toLowerCase()}`}>
           <div>
             <PostLabel label={label} isPreview={isPreview} />

@@ -13,7 +13,7 @@ export const PostLabel: FC<PostLabelProps> = ({ label: rawLabel, isPreview }) =>
   return (
     <div
       className={c(
-        'select-none rounded-full border-current py-3 px-4 text-center font-bold capitalize tracking-tight',
+        'select-none rounded-full border-current py-2 px-3 text-center font-bold capitalize tracking-tight sm:py-3 sm:px-4',
         labelStyles[label]?.bg,
         labelStyles[label]?.color,
         {

@@ -1,5 +1,7 @@
 import { useStore } from '@/store';
-import { useEffect, useRef } from 'react';
+import { ArrowDownIcon, ArrowUpIcon } from '@cpns/icons/Arrow';
+import c from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 
 type EventHandlerFuncType = (e: string, listener: EventListenerOrEventListenerObject) => void;
 
@@ -9,10 +11,14 @@ const removeEvent: EventHandlerFuncType = (e, listener) => window.removeEventLis
 export const Cursor = () => {
   const setCurrentCursor = useStore((s) => s.setCurrentCursor);
 
+  const [isMoving, setMoving] = useState(false);
+  const [isClicking, setClicking] = useState(false);
+
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
 
+  const moveTimeout = useRef(null);
   const isFirstMove = useRef(false);
   const realMouse = useRef({ x: -100, y: -100 });
   const displayedMouse = useRef({ x: -100, y: -100 });
@@ -22,6 +28,11 @@ export const Cursor = () => {
 
     const mouseMoveHandle = (e: MouseEvent) => {
       if (window.innerWidth < 768) return;
+
+      setMoving(true);
+
+      clearTimeout(moveTimeout.current);
+      moveTimeout.current = setTimeout(() => setMoving(false), 1000);
 
       if (dotRef.current) {
         dotRef.current.style.left = `${e.clientX}px`;
@@ -40,8 +51,15 @@ export const Cursor = () => {
         realMouse.current.y = e.clientY;
       }
     };
-    const mouseDownHandle = () => cursorRef.current?.setAttribute('cursor-status', 'click');
-    const mouseUpHandle = () => cursorRef.current?.setAttribute('cursor-status', '');
+    const mouseDownHandle = () => {
+      setClicking(true);
+      cursorRef.current?.setAttribute('cursor-status', 'click');
+    };
+    const mouseUpHandle = () => {
+      setClicking(false);
+      cursorRef.current?.setAttribute('cursor-status', '');
+    };
+
     const updateMouse = () => {
       requestAnimationFrame(updateMouse);
 
@@ -70,7 +88,16 @@ export const Cursor = () => {
 
   return (
     <div ref={cursorRef} className="hidden md:block" cursor-type="" cursor-status="">
-      <div ref={ringRef} className="cursor-ele" />
+      <div ref={ringRef} className="cursor-ele flexcenter">
+        <div
+          className={c('flex flex-col items-center justify-between text-4xl transition-opacity', {
+            'opacity-0': isMoving || isClicking,
+          })}
+        >
+          <ArrowUpIcon className="animate-bounceUp -mt-20 block" />
+          <ArrowDownIcon className="animate-bounceDown -mb-20 block" />
+        </div>
+      </div>
       <div ref={dotRef} className="cursor-ele" />
     </div>
   );

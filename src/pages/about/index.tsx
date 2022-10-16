@@ -13,7 +13,7 @@ export default function About() {
           <div className="w-full p-6">
             <div className="flexcentercol relative m-4 p-4">
               <div className="absolute h-[160px] w-[160px] animate-ping rounded-full bg-[#f2da87]" />
-              <Image src="/avatar.jpg" width={250} height={250} className="rounded-full" alt="Yuran Avatar" />
+              <Image src="/avatar.jpg" width={250} height={250} className="rounded-full" alt="Yuran Avatar" priority />
             </div>
 
             <div className="m-4 space-y-4 p-4 text-3xl">

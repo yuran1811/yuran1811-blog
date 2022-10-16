@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t">
       <Container>
-        <div className="m-4 flex-1 p-4">
+        <div className="my-4 flex-1 py-4 sm:m-4 sm:p-4">
           <div className="text-center text-4xl font-bold">Contact</div>
           <div className="flexcenter m-4 flex-wrap gap-4 p-4 text-6xl">
             <CursorEffectWrapper cursorType="link">
