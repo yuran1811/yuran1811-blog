@@ -1,5 +1,6 @@
 import { BackIcon } from '@cpns/icons/BackIcon';
 import { CoverImage, CursorEffectWrapper } from '@cpns/shared';
+import { BASE_URL } from '@shared/constants';
 import { PostType } from '@shared/types';
 import { useRouter } from 'next/router';
 import { PostCreation } from './PostCreation';
@@ -16,14 +17,24 @@ const PostHeader = ({ title, coverImage, date, author, label, tags }: PostHeader
     <>
       <div className="flexcentercol mb-12">
         <CursorEffectWrapper cursorType="link">
-          <BackIcon className="text-6xl md:text-7xl" onClick={() => router.back()} />
+          <BackIcon
+            className="text-6xl md:text-7xl"
+            onClick={() => {
+              if (window.history.length < 2) {
+                window.location.href = BASE_URL;
+                return;
+              }
+
+              router.back();
+            }}
+          />
         </CursorEffectWrapper>
         <PostTitle>{title}</PostTitle>
       </div>
 
       <div className="relative mt-20 mb-4 sm:mx-0 md:mb-10">
         <PostInfo className="flexcenter absolute -top-10 z-[1] block w-full text-lg" label={label} tags={tags} />
-        <CoverImage className="z-[0]" title={title} image={coverImage} />
+        <CoverImage className="z-[0]" title={title} image={coverImage} isPriority />
       </div>
 
       <div className="flexcenter mb-16 flex-wrap gap-8">
