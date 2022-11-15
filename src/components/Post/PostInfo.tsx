@@ -16,7 +16,7 @@ export const PostInfo: FC<PostInfoProps> = ({ label, tags, className, isPreview 
     <div
       className={c('flex-wrap gap-y-6', {
         flexcentercol: !isPreview,
-        'flexcenter gap-x-4': isPreview,
+        'flexcenter gap-x-1 sm:gap-x-4': isPreview,
       })}
     >
       <CursorEffectWrapper cursorType="link" className={c({ 'text-xl md:text-3xl': !isPreview })}>
