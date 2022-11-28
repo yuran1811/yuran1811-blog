@@ -16,10 +16,10 @@ const PostPreview: FC<PostPreviewProps> = ({ postData: { title, coverImage, date
         <CoverImage slug={slug} title={title} image={coverImage} />
       </CursorEffectWrapper>
     </div>
-    <h2 className="mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
+    <h2 className="mb-3 text-2xl font-semibold sm:text-3xl">
       <CursorEffectWrapper cursorType="link">
         <Link href={`/posts/${slug}`}>
-          <span className="line-clamp-2">{title}</span>
+          <span className="line-clamp-2 leading-normal">{title}</span>
         </Link>
       </CursorEffectWrapper>
     </h2>

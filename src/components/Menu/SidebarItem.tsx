@@ -20,7 +20,7 @@ export const SidebarItem: FC<SidebarItemProps & PropsWithChildren> = ({ href, la
           <div>
             <Link href={label.toLowerCase() || '/'}>
               <div
-                className="flex items-center justify-start gap-4 text-3xl"
+                className="flex items-center justify-start gap-4 text-2xl sm:text-3xl"
                 onContextMenu={(e) => {
                   e.preventDefault();
                   setExpanded((s) => !s);
@@ -42,7 +42,7 @@ export const SidebarItem: FC<SidebarItemProps & PropsWithChildren> = ({ href, la
         ) : (
           <CursorEffectWrapper cursorType="link">
             <Link href={`${href || '/'}`}>
-              <div className="flex items-center justify-start gap-4 text-3xl">
+              <div className="flex items-center justify-start gap-4 text-2xl sm:text-3xl">
                 {icon || ''} {label || ''}
               </div>
             </Link>

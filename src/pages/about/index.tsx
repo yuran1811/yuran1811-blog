@@ -16,7 +16,7 @@ export default function About() {
               <Image src="/avatar.jpg" width={250} height={250} className="rounded-full" alt="Yuran Avatar" priority />
             </div>
 
-            <div className="m-4 space-y-4 p-4 text-3xl">
+            <div className="space-y-4 py-4 text-2xl sm:m-4 sm:p-4">
               <div className="text-center">
                 My name is <strong>Khoa 🌽</strong> - aka <strong>Yuran</strong>
               </div>
@@ -25,7 +25,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="m-4 mt-12 space-y-4 p-4 text-3xl">
+            <div className="mt-12 space-y-4 py-4 text-2xl sm:m-4 sm:p-4">
               <div className="text-center">{`That's all for now`}</div>
               <div className="text-center">Thanks for reading 😊 </div>
             </div>

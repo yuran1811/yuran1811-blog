@@ -18,12 +18,12 @@ const HeroPost: FC<HeroPostProps> = ({ postData: { title, coverImage, date, auth
     </CursorEffectWrapper>
 
     <div className="mb-20 w-full bg-white backdrop-blur-md dark:bg-[#121212]/40 md:mb-28">
-      <div className="flexcentercol mx-auto -mt-8 w-full p-6 md:flex-row">
+      <div className="flexcentercol mx-auto -mt-8 w-full py-6 sm:p-6 md:flex-row">
         <div className="space-y-4">
-          <h2 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-6xl">
+          <h2 className="text-3xl font-semibold sm:text-4xl lg:text-5xl">
             <CursorEffectWrapper cursorType="link">
               <Link href={`/posts/${slug}`}>
-                <div className="line-clamp-3 text-center md:text-left">{title}</div>
+                <p className="line-clamp-3 text-center leading-normal md:text-left">{title}</p>
               </Link>
             </CursorEffectWrapper>
           </h2>

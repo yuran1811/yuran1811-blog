@@ -13,7 +13,10 @@ export default function Header() {
 
         <CursorEffectWrapper cursorType="wrapper">
           <Link href="/">
-            <span className="transition-transform hover:scale-105">Yuran Blog.</span>
+            <div>
+              <span className="min-[380px]:block hidden transition-transform hover:scale-105">Yuran Blog.</span>
+              <span className="min-[380px]:hidden">YBlog.</span>
+            </div>
           </Link>
         </CursorEffectWrapper>
 

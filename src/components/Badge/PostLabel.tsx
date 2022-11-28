@@ -14,10 +14,10 @@ export const PostLabel: FC<PostLabelProps> = ({ label: rawLabel, isPreview }) =>
     <div
       className={c(
         'select-none rounded-full border-current py-2 px-3 text-center font-bold capitalize tracking-tight sm:py-3 sm:px-4',
-        labelStyles[label]?.bg,
-        labelStyles[label]?.color,
+        labelStyles[label]?.bg || labelStyles['unknown']?.bg,
+        labelStyles[label]?.color || labelStyles['unknown']?.color,
         {
-          'border-[6px]': !isPreview,
+          'border-4 sm:border-[6px]': !isPreview,
           'border-4': isPreview,
         }
       )}

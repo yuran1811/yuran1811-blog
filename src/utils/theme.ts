@@ -19,6 +19,8 @@ export const hashTagStyles: StyleType = {
   'vs-code': { bg: 'bg-hashtag-vscode', color: 'text-white' },
   technology: { bg: 'bg-hashtag-tech', color: 'text-white' },
   js: { bg: 'bg-hashtag-js', color: 'text-white' },
+
+  unknown: { bg: 'bg-[#eaeaea]', color: 'text-[#565656]' },
 };
 
 export const labelStyles: StyleType = {
@@ -27,4 +29,6 @@ export const labelStyles: StyleType = {
   pts: { bg: 'bg-sky-800', color: 'text-sky-300' },
   tools: { bg: 'bg-teal-300', color: 'text-teal-600' },
   discover: { bg: 'bg-yellow-300', color: 'text-yellow-800' },
+
+  unknown: { bg: 'bg-[#eaeaea]', color: 'text-[#565656]' },
 };

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="border-t">
       <Container>
         <div className="my-4 flex-1 py-4 sm:m-4 sm:p-4">
-          <div className="text-center text-4xl font-bold">Contact</div>
+          <div className="text-center text-3xl font-bold">Contact</div>
           <div className="flexcenter m-4 flex-wrap gap-4 p-4 text-6xl">
             <CursorEffectWrapper cursorType="link">
               <ExternalLink href={GITHUB_PROFILE}>
@@ -38,7 +38,9 @@ export default function Footer() {
 
       <div className="flexcentercol space-y-2 p-8 text-center dark:text-gray-400">
         <span>© Copyright {new Date().getFullYear()}. All Rights Reserved.</span>
-        <span>Made by yuran1811</span>
+        <CursorEffectWrapper cursorType="link">
+          <ExternalLink href={GITHUB_PROFILE}>Made by yuran1811</ExternalLink>
+        </CursorEffectWrapper>
       </div>
     </footer>
   );

@@ -16,8 +16,8 @@ export const Hashtag: FC<HashtagProps & PropsWithChildren> = ({ children, href, 
         <a
           className={c(
             'm-2 select-none rounded-md p-2 px-4 font-semibold',
-            hashTagStyles[tag]?.bg,
-            hashTagStyles[tag]?.color
+            hashTagStyles[tag]?.bg || hashTagStyles['unknown']?.bg,
+            hashTagStyles[tag]?.color || hashTagStyles['unknown']?.color
           )}
         >
           # {children}
